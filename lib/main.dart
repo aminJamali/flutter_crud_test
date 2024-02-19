@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'feature/home/presentation/home_screen.dart';
+import 'core/router/app_router.dart';
+import 'core/router/route_names.dart';
+import 'core/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,10 +14,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: const HomeScreen(),
+        theme: AppTheme.getThemeData(),
+        onGenerateRoute: AppRouter.onGenerateRoute,
+        initialRoute: RouteNames.homeScreen,
       );
 }
