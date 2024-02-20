@@ -44,6 +44,23 @@ void main() {
       GetAllCustomersLoadedState(_getAllCustomersSimpleList),
     ],
   );
+
+  blocTest<GetAllCustomersBloc, GetAllCustomersState>(
+    'emits [GetAllCustomersLoadingState , GetAllCustomersExceptionState] when GetAllCustomerEvent is added',
+    build: () {
+      when(() => mockGetAllCustomersUseCase.call(null)).thenAnswer(
+        (_) async => Left(
+          Exception('Something went wrong'),
+        ),
+      );
+      return getAllCustomersBloc;
+    },
+    act: (bloc) => bloc.add(GetAllCustomersEvent()),
+    expect: () => [
+      GelAllCustomersLoadingState(),
+      GelAllCustomersExceptionState(Exception('Something went wrong')),
+    ],
+  );
 }
 
 final _getAllCustomersSimpleList = [
