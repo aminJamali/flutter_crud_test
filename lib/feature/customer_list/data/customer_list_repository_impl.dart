@@ -20,7 +20,7 @@ class CustomerListRepositoryImpl extends CustomerListRepository {
         final customers = <CustomerModel>[];
         r.forEach((key, value) {
           customers.add(
-            CustomerModel.fromJson(value as Map<String, dynamic>),
+            CustomerModel.fromJson(value as Map<dynamic, dynamic>),
           );
         });
         return Right(customers);

@@ -64,6 +64,6 @@ void main() {
 }
 
 final _getAllCustomersSimpleList = [
-  CustomerEntity(id: 1, name: 'Amin Jamali', email: 'amin@gmail.com'),
-  CustomerEntity(id: 2, name: 'Reza Ahmadi', email: 'reza@gmail.com'),
+  CustomerEntity(id: '1', name: 'Amin Jamali', email: 'amin@gmail.com'),
+  CustomerEntity(id: '2', name: 'Reza Ahmadi', email: 'reza@gmail.com'),
 ];

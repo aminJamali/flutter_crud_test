@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/router/route_names.dart';
 import '../../../core/utils/utils.dart';
 import '../domain/entity/customer_entity.dart';
 import 'bloc/get_all_customers_bloc.dart';
@@ -23,8 +24,17 @@ class _CustomerListScreenState extends State<CustomerListScreen> {
     super.initState();
   }
 
+  Future<void> _onAddButtonPressed(final BuildContext context) async {
+    await Navigator.pushNamed(context, RouteNames.addCustomerScreen);
+    context.read<GetAllCustomersBloc>().add(GetAllCustomersEvent());
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _onAddButtonPressed(context),
+          child: const Icon(Icons.add),
+        ),
         appBar: AppBar(
           title: const Text('Customers List'),
         ),
@@ -64,16 +74,22 @@ class _CustomerListScreenState extends State<CustomerListScreen> {
   Widget _list(final List<CustomerEntity> items) => items.isNotEmpty
       ? ListView.builder(
           itemCount: items.length,
-          itemBuilder: (final context, final index) => Column(
-            children: [
-              Text(
-                items[index].name,
-              ),
-              Utils.mediumVerticalSpacer,
-              Text(
-                items[index].email,
-              ),
-            ],
+          itemBuilder: (final context, final index) => Padding(
+            padding: Utils.mediumPadding,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  items[index].name,
+                ),
+                Utils.mediumVerticalSpacer,
+                Text(
+                  items[index].email,
+                ),
+                Utils.mediumVerticalSpacer,
+                const Divider(),
+              ],
+            ),
           ),
         )
       : const Center(

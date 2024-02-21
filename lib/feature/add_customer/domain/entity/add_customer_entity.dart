@@ -1,10 +1,8 @@
-class CustomerEntity {
-  final String id;
+class AddCustomerEntity {
   final String name;
   final String email;
 
-  CustomerEntity({
-    required this.id,
+  AddCustomerEntity({
     required this.name,
     required this.email,
   });
