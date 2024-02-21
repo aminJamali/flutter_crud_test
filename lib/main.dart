@@ -5,11 +5,11 @@ import 'package:path_provider/path_provider.dart';
 import 'core/router/app_router.dart';
 import 'core/router/route_names.dart';
 import 'core/theme/app_theme.dart';
-import 'feature/customer_list/presentation/bindings/customer_list_bindings.dart';
+import 'feature/customer_list/presentation/injection/customer_list_injection.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await CustomerListGetIt.init();
+  await CustomerListInjection.init();
   final directory = await getApplicationDocumentsDirectory();
   Hive.init(directory.path);
 
