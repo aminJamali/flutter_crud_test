@@ -7,6 +7,7 @@ import 'package:simple_bloc_app/feature/add_customer/domain/repository/add_custo
 import 'package:simple_bloc_app/feature/add_customer/domain/use_case/add_customer_use_case.dart';
 import 'package:simple_bloc_app/feature/add_customer/presentation/bloc/add_customer_bloc.dart';
 import 'package:simple_bloc_app/feature/add_customer/presentation/bloc/add_customer_state.dart';
+import 'package:simple_bloc_app/shared/models/exception_model.dart';
 
 class MockAddCustomerRepository extends Mock implements AddCustomerRepository {}
 
@@ -40,7 +41,7 @@ void main() {
     build: () {
       when(() => mockAddCustomerUseCase.call(addCustomerDto)).thenAnswer(
         (_) async => Left(
-          Exception('exception'),
+          ExceptionModel(message: 'exception'),
         ),
       );
       return addCustomerBloc;

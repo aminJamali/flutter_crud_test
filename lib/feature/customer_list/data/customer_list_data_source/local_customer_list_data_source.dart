@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/handlers/local_db_handler.dart';
+import '../../../../shared/models/exception_model.dart';
 
 class LocalCustomerListDataSource with LocalDbHandler {
-  Future<Either<Exception, Map<String, dynamic>>> getAllCustomers() async {
+  Future<Either<ExceptionModel, Map<String, dynamic>>> getAllCustomers() async {
     await fakeDelay();
     try {
       final customersBox = await openCustomersBox();
@@ -11,7 +12,7 @@ class LocalCustomerListDataSource with LocalDbHandler {
       final Map<String, dynamic> items = await customersBox.getAllValues();
       return Right(items);
     } on Exception {
-      return Left(Exception('Something went wrong'));
+      return Left(ExceptionModel(message: 'Something went wrong'));
     }
   }
 

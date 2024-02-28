@@ -2,10 +2,11 @@ import 'package:dartz/dartz.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../core/handlers/local_db_handler.dart';
+import '../../../../shared/models/exception_model.dart';
 import '../model/add_customer_dto.dart';
 
 class LocalAddCustomerDataSource with LocalDbHandler {
-  Future<Either<Exception, String>> addCustomer(
+  Future<Either<ExceptionModel, String>> addCustomer(
     AddCustomerDto addCustomerDto,
   ) async {
     try {
@@ -15,7 +16,7 @@ class LocalAddCustomerDataSource with LocalDbHandler {
 
       return Right(uuid);
     } catch (e) {
-      return Left(Exception(e));
+      return Left(ExceptionModel(message: e.toString()));
     }
   }
 }

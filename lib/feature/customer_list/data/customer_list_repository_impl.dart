@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 
+import '../../../shared/models/exception_model.dart';
 import '../domain/entity/customer_entity.dart';
 import '../domain/repository/customer_list_repository.dart';
 import 'customer_list_data_source/local_customer_list_data_source.dart';
@@ -11,7 +12,7 @@ class CustomerListRepositoryImpl extends CustomerListRepository {
   CustomerListRepositoryImpl(this.localCustomerListDataSource);
 
   @override
-  Future<Either<Exception, List<CustomerEntity>>> getAllCustomer() async {
+  Future<Either<ExceptionModel, List<CustomerEntity>>> getAllCustomer() async {
     final result = await localCustomerListDataSource.getAllCustomers();
 
     return result.fold(

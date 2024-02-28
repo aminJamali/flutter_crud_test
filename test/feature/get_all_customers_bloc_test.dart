@@ -8,6 +8,7 @@ import 'package:simple_bloc_app/feature/customer_list/domain/use_case/get_all_cu
 import 'package:simple_bloc_app/feature/customer_list/presentation/bloc/get_all_customers_bloc.dart';
 import 'package:simple_bloc_app/feature/customer_list/presentation/bloc/get_all_customers_event.dart';
 import 'package:simple_bloc_app/feature/customer_list/presentation/bloc/get_all_customers_state.dart';
+import 'package:simple_bloc_app/shared/models/exception_model.dart';
 
 class MockGetAllCustomersUseCase extends Mock
     implements GetAllCustomersUseCase {}
@@ -50,7 +51,7 @@ void main() {
     build: () {
       when(() => mockGetAllCustomersUseCase.call(null)).thenAnswer(
         (_) async => Left(
-          Exception('Something went wrong'),
+          ExceptionModel(message: 'Something went wrong'),
         ),
       );
       return getAllCustomersBloc;
@@ -58,7 +59,9 @@ void main() {
     act: (bloc) => bloc.add(GetAllCustomersEvent()),
     expect: () => [
       GelAllCustomersLoadingState(),
-      GelAllCustomersExceptionState(Exception('Something went wrong')),
+      GelAllCustomersExceptionState(
+        ExceptionModel(message: 'Something went wrong'),
+      ),
     ],
   );
 }

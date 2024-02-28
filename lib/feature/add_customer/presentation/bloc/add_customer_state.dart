@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../../../shared/models/exception_model.dart';
+
 abstract class AddCustomerState extends Equatable {}
 
 class AddCustomerLoadingState extends AddCustomerState {
@@ -17,7 +19,7 @@ class AddCustomerLoadedState extends AddCustomerState {
 }
 
 class AddCustomerExceptionState extends AddCustomerState {
-  final Exception exception;
+  final ExceptionModel exception;
 
   AddCustomerExceptionState(this.exception);
 

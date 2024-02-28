@@ -4,30 +4,32 @@ import 'package:mocktail/mocktail.dart';
 import 'package:simple_bloc_app/feature/add_customer/data/model/add_customer_dto.dart';
 import 'package:simple_bloc_app/feature/add_customer/domain/repository/add_customer_repopsitory.dart';
 import 'package:simple_bloc_app/feature/add_customer/domain/use_case/add_customer_use_case.dart';
+import 'package:simple_bloc_app/shared/models/exception_model.dart';
 
 class MockAddCustomerRepository extends Mock implements AddCustomerRepository {}
 
-class MockAddCustomerUseCase extends Mock implements AddCustomerUseCase {}
-
 void main() {
-  late MockAddCustomerUseCase mockAddCustomerUseCase;
+  late MockAddCustomerRepository mockAddCustomerRepository;
+  late AddCustomerUseCase addCustomerUseCase;
 
   setUp(
     () {
-      mockAddCustomerUseCase = MockAddCustomerUseCase();
+      mockAddCustomerRepository = MockAddCustomerRepository();
+      addCustomerUseCase = AddCustomerUseCase(mockAddCustomerRepository);
     },
   );
 
   test(
     'add customer use case test',
     () async {
-      when(() => mockAddCustomerUseCase.call(addCustomerDto)).thenAnswer(
+      when(() => mockAddCustomerRepository.addCustomer(addCustomerDto))
+          .thenAnswer(
         (_) async => const Right(
           '1',
         ),
       );
 
-      final result = await mockAddCustomerUseCase.call(addCustomerDto);
+      final result = await addCustomerUseCase.call(addCustomerDto);
 
       result.fold(
         (l) => null,
@@ -41,17 +43,18 @@ void main() {
   test(
     'add customer use case failure test',
     () async {
-      when(() => mockAddCustomerUseCase.call(addCustomerDto)).thenAnswer(
+      when(() => mockAddCustomerRepository.addCustomer(addCustomerDto))
+          .thenAnswer(
         (_) async => Left(
-          Exception('error'),
+          ExceptionModel(message: 'error'),
         ),
       );
 
-      final result = await mockAddCustomerUseCase.call(addCustomerDto);
+      final result = await addCustomerUseCase.call(addCustomerDto);
 
       result.fold(
         (l) {
-          expect('error', l.toString());
+          expect('error', l.message);
         },
         (r) => null,
       );
