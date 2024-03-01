@@ -1,7 +1,9 @@
+
+
 import '../../domain/entity/customer_entity.dart';
 
 class CustomerModel extends CustomerEntity {
-  CustomerModel({
+  const CustomerModel({
     required super.id,
     required super.name,
     required super.email,
@@ -13,4 +15,6 @@ class CustomerModel extends CustomerEntity {
         name: json['name'],
         email: json['email'],
       );
+
+
 }
