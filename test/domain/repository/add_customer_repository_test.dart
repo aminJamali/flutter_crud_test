@@ -26,13 +26,13 @@ void main() {
     'add customer repository test',
     () async {
       when(
-        () => mockAddCustomerDataSource.addCustomer(addCustomerFakeDto),
+        () => mockAddCustomerDataSource.addCustomer(_addCustomerFakeDto),
       ).thenAnswer(
         (_) async => const Right('1'),
       );
 
       final result =
-          await addCustomerRepository.addCustomer(addCustomerFakeDto);
+          await addCustomerRepository.addCustomer(_addCustomerFakeDto);
 
       result.fold(
         (l) => null,
@@ -47,13 +47,13 @@ void main() {
     'add customer repository failure test',
     () async {
       when(
-        () => mockAddCustomerDataSource.addCustomer(addCustomerFakeDto),
+        () => mockAddCustomerDataSource.addCustomer(_addCustomerFakeDto),
       ).thenAnswer(
         (_) async => Left(ExceptionModel(message: 'error')),
       );
 
       final result =
-          await addCustomerRepository.addCustomer(addCustomerFakeDto);
+          await addCustomerRepository.addCustomer(_addCustomerFakeDto);
 
       result.fold(
         (l) => expect('error', l.message),
@@ -63,7 +63,7 @@ void main() {
   );
 }
 
-final AddCustomerDto addCustomerFakeDto = AddCustomerDto(
+final AddCustomerDto _addCustomerFakeDto = AddCustomerDto(
   name: 'amin jamali',
   email: 'amin@gmail.com',
 );
