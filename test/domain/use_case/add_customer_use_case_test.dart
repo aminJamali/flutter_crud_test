@@ -22,14 +22,14 @@ void main() {
   test(
     'add customer use case test',
     () async {
-      when(() => mockAddCustomerRepository.addCustomer(addCustomerDto))
+      when(() => mockAddCustomerRepository.addCustomer(addCustomerFakeDto))
           .thenAnswer(
         (_) async => const Right(
           '1',
         ),
       );
 
-      final result = await addCustomerUseCase.call(addCustomerDto);
+      final result = await addCustomerUseCase.call(addCustomerFakeDto);
 
       result.fold(
         (l) => null,
@@ -43,14 +43,14 @@ void main() {
   test(
     'add customer use case failure test',
     () async {
-      when(() => mockAddCustomerRepository.addCustomer(addCustomerDto))
+      when(() => mockAddCustomerRepository.addCustomer(addCustomerFakeDto))
           .thenAnswer(
         (_) async => Left(
           ExceptionModel(message: 'error'),
         ),
       );
 
-      final result = await addCustomerUseCase.call(addCustomerDto);
+      final result = await addCustomerUseCase.call(addCustomerFakeDto);
 
       result.fold(
         (l) {
@@ -62,7 +62,7 @@ void main() {
   );
 }
 
-final AddCustomerDto addCustomerDto = AddCustomerDto(
+final AddCustomerDto addCustomerFakeDto = AddCustomerDto(
   name: 'amin jamali',
   email: 'amin@gmail.com',
 );
