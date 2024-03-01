@@ -10,13 +10,13 @@ class MockGetAllCustomerRepository extends Mock
     implements CustomerListRepository {}
 
 void main() {
-  late GetAllCustomersUseCase mockGetAllCustomersUseCase;
+  late GetAllCustomersUseCase getAllCustomersUseCase;
   late MockGetAllCustomerRepository mockGetAllCustomerRepository;
 
   setUp(
     () {
       mockGetAllCustomerRepository = MockGetAllCustomerRepository();
-      mockGetAllCustomersUseCase =
+      getAllCustomersUseCase =
           GetAllCustomersUseCase(mockGetAllCustomerRepository);
     },
   );
@@ -30,7 +30,7 @@ void main() {
         ),
       );
 
-      final result = await mockGetAllCustomersUseCase.call(null);
+      final result = await getAllCustomersUseCase.call(null);
 
       result.fold(
         (l) => null,
@@ -44,16 +44,16 @@ void main() {
   test(
     'Get All Customers use case failure test',
     () async {
-      when(() => mockGetAllCustomersUseCase.call(null)).thenAnswer(
+      when(() => mockGetAllCustomerRepository.getAllCustomer()).thenAnswer(
         (_) async => Left(
           ExceptionModel(message: 'exception'),
         ),
       );
 
-      final result = await mockGetAllCustomersUseCase.call(null);
+      final result = await getAllCustomersUseCase.call(null);
 
       result.fold(
-        (l) => expect('exception', l.toString()),
+        (l) => expect('exception', l.message),
         (r) => null,
       );
     },
@@ -61,7 +61,7 @@ void main() {
 }
 
 final _customers = [
-  CustomerEntity(
+  const CustomerEntity(
     id: '12',
     name: 'amin',
     email: 'aminj@gmail.com',

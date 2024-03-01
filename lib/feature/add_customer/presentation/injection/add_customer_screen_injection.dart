@@ -6,7 +6,7 @@ import '../../data/data_source/local_add_customer_data_source.dart';
 import '../../domain/use_case/add_customer_use_case.dart';
 
 class AddCustomerScreenInjection {
-  static final GetIt addCustomerGetIt = GetIt.instance;
+  static final GetIt addCustomerGetIt = GetIt.asNewInstance();
 
   static Future<void> init() async {
     addCustomerGetIt.registerSingleton<LocalDbHandler>(LocalDbHandler());
